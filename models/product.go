@@ -1,4 +1,4 @@
-package main
+package model
 
 type Product struct {
 	ProductCode        string  `gorm:"type:varchar(15);column:productCode;primaryKey"`

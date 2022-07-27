@@ -3,6 +3,8 @@ package main
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+
+	action "main/actions"
 )
 
 func main() {
@@ -12,5 +14,5 @@ func main() {
 		panic(err)
 	}
 
-	Query(db)
+	action.Query(db)
 }

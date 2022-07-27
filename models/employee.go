@@ -1,4 +1,4 @@
-package main
+package model
 
 type Employee struct {
 	Number     int64  `gorm:"column:employeeNumber;type:int;primaryKey"`

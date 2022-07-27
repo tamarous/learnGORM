@@ -1,4 +1,4 @@
-package main
+package model
 
 type Office struct {
 	OfficeCode   string `gorm:"type:varchar(10);column:officeCode;primaryKey"`

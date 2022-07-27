@@ -1,4 +1,4 @@
-package main
+package model
 
 type OrderDetail struct {
 	OrderNumber     int64   `gorm:"type:int;column:orderNumber;primaryKey"`
