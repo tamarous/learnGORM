@@ -22,12 +22,11 @@ func Query(db *gorm.DB) {
 	fmt.Printf("customer_103: %v", customer_103)
 	fmt.Println("")
 
-	customers := make([]model.Customer, 10)
-	db.Find(&customers, []int{103, 112, 114, 119, 121, 124, 125, 128, 129, 131})
+	customersMatchId := make([]model.Customer, 10)
+	db.Find(&customersMatchId, []int{103, 112, 114, 119, 121, 124, 125, 128, 129, 131})
 
-	fmt.Println("customers match ids:")
-	for i, c := range customers {
-		fmt.Printf("customers[%d]: %v\n", i, c)
+	for i, c := range customersMatchId {
+		fmt.Printf("customersMatchId[%d]: %v\n", i, c)
 	}
 
 	var parisCustomers []model.Customer
@@ -38,43 +37,22 @@ func Query(db *gorm.DB) {
 		fmt.Printf("parisCustomers[%d]:%v\n", i, c)
 	}
 
-	var employee model.Employee
-	db.Last(&employee)
-	fmt.Printf("employee: %v", employee)
+	var partialCustomes []model.Customer
+	db.Select("customerName", "contactLastName", "contactFirstName").Where("city = ?", "Paris").Find(&partialCustomes)
+	for i, c := range partialCustomes {
+		fmt.Printf("partialCustomes[%d]:%v\n", i, c)
+	}
 
-	fmt.Println("")
+	var sortedCustomes []model.Customer
+	db.Where("city = ?", "Paris").Order("customerName asc, customerNumber asc").Find(&sortedCustomes)
+	for i, c := range sortedCustomes {
+		fmt.Printf("sortedCustomes[%d]:%v\n", i, c)
+	}
 
-	var office model.Office
-	db.First(&office)
-	fmt.Printf("office: %v", office)
+	limit3Customers := make([]model.Customer, 3)
+	db.Limit(3).Find(&limit3Customers)
+	for i, c := range limit3Customers {
+		fmt.Printf("limit3Customers[%d]:%v\n", i, c)
+	}
 
-	fmt.Println("")
-
-	var orderDetail model.OrderDetail
-	db.Table("orderdetails").Take(&orderDetail)
-	fmt.Printf("orderDetail: %v", orderDetail)
-
-	fmt.Println("")
-
-	var order model.Order
-	db.Take(&order)
-	fmt.Printf("order: %v", order)
-
-	fmt.Println("")
-
-	var payment model.Payment
-	db.Take(&payment)
-	fmt.Printf("payment: %v", payment)
-
-	fmt.Println("")
-
-	var productLine model.ProductLine
-	db.Take(&productLine)
-	fmt.Printf("productLine: %v", productLine)
-
-	fmt.Println("")
-
-	var product model.Product
-	db.Take(&product)
-	fmt.Printf("product: %v", product)
 }
