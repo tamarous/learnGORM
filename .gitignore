@@ -21,3 +21,5 @@
 go.work
 
 configs/db.yml
+
+.vscode/*
